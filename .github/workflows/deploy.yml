@@ -15,6 +15,8 @@ jobs:
       - run: |
           echo "${{ secrets.SERVER_KEY }}" > private_key.pem
           chmod 600 private_key.pem
+          ssh-keygen -y -f private_key.pem > private_key.pub
+          ssh-keyscan -H  ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
       - run: tar -czf ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz .
 
