@@ -10,7 +10,7 @@ jobs:
 
       - id: my_vars
         run: |
-          echo "$(date +'%Y-%m-%dT%H.%M.%S')-${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "::set-output name=tar_name::$(date +'%Y-%m-%dT%H.%M.%S')-${{ github.sha }}"
 
       - run: tar -czf ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz .
 
