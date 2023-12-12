@@ -39,5 +39,3 @@ jobs:
             cd ~/cms
             mkdir ${{ steps.my_vars.outputs.tar_name }}
             tar -xzvf ${{ steps.my_vars.outputs.tar_name }}.tar.gz -C ./${{ steps.my_vars.outputs.tar_name }}
-            unlink www
-            ln -s ${{ steps.my_vars.outputs.tar_name }} www
