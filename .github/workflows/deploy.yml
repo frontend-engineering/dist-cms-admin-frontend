@@ -5,18 +5,18 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
 
+    env:
+      TAR_NAME: ${{ runner.temp }}/${date +'%Y-%m-%dT%H.%M.%S'}-${{ github.sha }}
+
     steps:
       - uses: actions/checkout@v3
 
-      - id: now
-        run: echo "::set-output name=now::$(date +'%Y-%m-%dT%H.%M.%S')"
-
-      - run: tar -czf ${{ runner.temp }}/${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz .
+      - run: tar -czf $TAR_NAME.tar.gz .
 
       - uses: actions/upload-artifact@v3
         with:
-          name: ${{ steps.now.outputs.now }}-${{ github.sha }}
-          path: ${{ runner.temp }}/${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz
+          name: ${{ env.TAR_NAME }}
+          path: ${{ env.TAR_NAME }}.tar.gz
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
@@ -24,5 +24,5 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}
-          source: ${{ runner.temp }}/${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz
+          source: ${{ env.TAR_NAME }}.tar.gz
           target: "$HOME/cms"
