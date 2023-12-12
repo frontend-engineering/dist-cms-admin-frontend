@@ -16,7 +16,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.now.outputs.now }}-${{ github.sha }}
-          path: ${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz
+          path: ../${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
