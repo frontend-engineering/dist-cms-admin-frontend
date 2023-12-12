@@ -15,7 +15,8 @@ jobs:
       - run: |
           echo "${{ secrets.SERVER_KEY }}" > private_key.pem
           chmod 600 private_key.pem
-          ssh -T git@gitlab.com
+          mkdir ~/.ssh
+          touch ~/.ssh/known_hosts
           ssh-keygen -y -f private_key.pem > private_key.pub
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
