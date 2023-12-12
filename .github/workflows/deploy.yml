@@ -10,20 +10,19 @@ jobs:
 
       - id: my_vars
         run: |
-          echo "::set-output name=tar_name::$(date +'%Y-%m-%dT%H.%M.%S')-${{ github.sha }}"
+          echo "$(date +'%Y-%m-%dT%H.%M.%S')-${{ github.sha }}" >> $GITHUB_OUTPUT
 
-      - run: tar -czf $HOME/${{ steps.my_vars.outputs.tar_name }}.tar.gz .
+      - run: tar -czf ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz .
 
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.my_vars.outputs.tar_name }}
-          path: $HOME/${{ steps.my_vars.outputs.tar_name }}.tar.gz
+          path: ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz
 
-      - name: Deploy to Server
-        uses: appleboy/scp-action@master
+      - uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_KEY }}
-          source: $HOME/${{ steps.my_vars.outputs.tar_name }}.tar.gz
+          source: ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz
           target: "$HOME/cms"
