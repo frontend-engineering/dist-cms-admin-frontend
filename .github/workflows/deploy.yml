@@ -12,6 +12,10 @@ jobs:
         run: |
           echo "::set-output name=tar_name::$(date +'%Y-%m-%dT%H.%M.%S')-${{ github.sha }}"
 
+      - run: |
+          echo "${{ secrets.SERVER_KEY }}" > private_key.pem
+          chmod 600 private_key.pem
+
       - run: tar -czf ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz .
 
       - uses: actions/upload-artifact@v3
@@ -19,10 +23,5 @@ jobs:
           name: ${{ steps.my_vars.outputs.tar_name }}
           path: ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz
 
-      - uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_KEY }}
-          source: ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz
-          target: "$HOME/cms"
+      - run: |
+          scp -i private_key.pem ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:$HOME/cms
