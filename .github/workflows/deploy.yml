@@ -28,4 +28,4 @@ jobs:
           path: ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz
 
       - run: |
-          scp -i private_key.pem ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:$HOME/cms
+          scp -i private_key.pem ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:~/cms
