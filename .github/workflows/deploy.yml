@@ -11,12 +11,12 @@ jobs:
       - id: now
         run: echo "::set-output name=now::$(date +'%Y-%m-%dT%H.%M.%S')"
 
-      - run: tar -czf ${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz .
+      - run: tar -czf ../${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz .
 
       - uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.now.outputs.now }}-${{ github.sha }}
-          path: ../${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz
+          path: ${{ steps.now.outputs.now }}-${{ github.sha }}.tar.gz
 
       - name: Deploy to Server
         uses: appleboy/scp-action@master
