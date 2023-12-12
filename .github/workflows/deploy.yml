@@ -20,7 +20,7 @@ jobs:
           ssh-keygen -y -f ${{ runner.temp }}/private_key.pem > ${{ runner.temp }}/private_key.pub
           ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
 
-      - run: tar -czf ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz --exclude .git --exclude .github . 
+      - run: tar -czf ${{ runner.temp }}/${{ steps.my_vars.outputs.tar_name }}.tar.gz --exclude .git --exclude .github .
 
       - uses: actions/upload-artifact@v3
         with:
