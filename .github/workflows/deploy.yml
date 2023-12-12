@@ -37,4 +37,6 @@ jobs:
           key: ${{ secrets.SERVER_KEY }}
           script: |
             cd ~/cms
-            tar -xzvf ${{ steps.my_vars.outputs.tar_name }}.tar.gz -C ~/cms/www
+            mkdir ${{ steps.my_vars.outputs.tar_name }}
+            tar -xzvf ${{ steps.my_vars.outputs.tar_name }}.tar.gz -C ./${{ steps.my_vars.outputs.tar_name }}
+            ln -s ${{ steps.my_vars.outputs.tar_name }} www
