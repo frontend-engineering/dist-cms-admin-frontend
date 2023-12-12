@@ -4,7 +4,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-20.04
+
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: tar-${{ github.sha }}
+          path: "."
+
       - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:
