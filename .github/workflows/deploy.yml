@@ -39,3 +39,4 @@ jobs:
             cd ~/cms
             mkdir ${{ steps.my_vars.outputs.tar_name }}
             tar -xzvf ${{ steps.my_vars.outputs.tar_name }}.tar.gz -C ./${{ steps.my_vars.outputs.tar_name }}
+            ln -s www ${{ steps.my_vars.outputs.tar_name }}
