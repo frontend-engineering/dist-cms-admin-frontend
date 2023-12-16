@@ -25,6 +25,7 @@ jobs:
           local_path: out
           remote_path: ''
           clean: true
+          accelerate: true
 
       # - id: my_vars
       #   run: |
