@@ -16,7 +16,7 @@ jobs:
           cos_bucket: cms-1306445775
           cos_region: ap-shanghai
           local_path: |
-            assets
+            assets/
             index.html
             favicon.ico
           remote_path: ""
