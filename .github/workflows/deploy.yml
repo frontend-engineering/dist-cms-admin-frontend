@@ -15,7 +15,10 @@ jobs:
           secret_key: ${{ secrets.TENCENT_SEC_KEY }}
           cos_bucket: cms-1306445775
           cos_region: ap-shanghai
-          local_path: .
+          local_path: |
+            assets
+            index.html
+            favicon.ico
           remote_path: ""
           clean: true
 
