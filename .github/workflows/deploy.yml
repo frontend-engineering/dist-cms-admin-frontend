@@ -7,12 +7,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - run: |
           mkdir out
           mv assets/ out/
           mv index.html out/
           mv favicon.ico out/
-
+          ls out/
 
       - uses: TencentCloud/cos-action@v1
         id: publish
