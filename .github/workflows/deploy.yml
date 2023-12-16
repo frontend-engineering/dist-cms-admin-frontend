@@ -7,6 +7,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          mkdir out
+          mv assets/ out/
+          mv index.html out/
+          mv favicon.ico out/
+
 
       - uses: TencentCloud/cos-action@v1
         id: publish
@@ -15,10 +21,7 @@ jobs:
           secret_key: ${{ secrets.TENCENT_SEC_KEY }}
           cos_bucket: cms-1306445775
           cos_region: ap-shanghai
-          local_path: |
-            assets/
-            index.html
-            favicon.ico
+          local_path: out
           remote_path: ""
           clean: true
 
