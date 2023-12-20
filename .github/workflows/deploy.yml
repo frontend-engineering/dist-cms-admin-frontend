@@ -23,8 +23,9 @@ jobs:
           cos_bucket: cms-1306445775
           cos_region: ap-shanghai
           local_path: out
-          remote_path: ""
+          remote_path: ''
           clean: true
+          accelerate: true
 
       # - id: my_vars
       #   run: |
